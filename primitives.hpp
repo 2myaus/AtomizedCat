@@ -15,6 +15,8 @@ namespace AtomizedCat{
 
 			scalar(const double magnitude);
 			scalar(const scalar &rhs);
+
+			operator double() const;
 	};
 
 	struct Vector3{
@@ -42,8 +44,7 @@ namespace AtomizedCat{
 		Position(const Position &ref, const Vector3 &dif);
 		Position(const Position &rhs);
 
-		private:
-			Vector3 absolutepos; //Ranges from 0.0-1.0
+		Vector3 absolutepos; //Ranges from 0.0-1.0
 	};
 }
 

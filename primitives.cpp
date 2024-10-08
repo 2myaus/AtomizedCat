@@ -24,6 +24,10 @@ namespace AtomizedCat {
 	scalar::scalar(const double magnitude): m(magnitude){};
 	scalar::scalar(const scalar &rhs): scalar(rhs.m){};
 
+	scalar::operator double() const{
+		return m;
+	}
+
 	Vector3 Vector3::operator+(const Vector3 &o) const{
 		return Vector3(x+o.x,y+o.y,z+o.z);
 	}
