@@ -12,6 +12,9 @@ namespace AtomizedCat{
 			scalar operator-(const scalar &o) const;
 			scalar operator*(const scalar &o) const;
 			scalar operator/(const scalar &o) const;
+
+			scalar(const double magnitude);
+			scalar(const scalar &rhs);
 	};
 
 	struct Vector3{
@@ -24,6 +27,9 @@ namespace AtomizedCat{
 			Vector3 operator-() const;
 			Vector3 operator-(const Vector3 &o) const;
 
+			Vector3(const scalar argX, const scalar argY, const scalar argZ);
+			Vector3(const Vector3 &rhs);
+
 			scalar squaredMagnitude() const;
 			scalar dot(const Vector3 &o) const;
 			Vector3 cross(const Vector3 &o) const;
@@ -32,6 +38,10 @@ namespace AtomizedCat{
 	struct Position{
 		Vector3 operator-(const Position &o) const;
 		Position operator+(const Vector3 &o) const;
+
+		Position(const Position &ref, const Vector3 &dif);
+		Position(const Position &rhs);
+
 		private:
 			Vector3 absolutepos; //Ranges from 0.0-1.0
 	};

@@ -2,17 +2,11 @@
 
 namespace AtomizedCat {
 	scalar scalar::operator+(const scalar& o) const{
-		scalar n;
-		n.m = o.m + m;
-
-		return n;
+		return scalar(o.m + m);
 	}
 
 	scalar scalar::operator-() const{
-		scalar n;
-		n.m = -m;
-		
-		return n;
+		return scalar(-m);
 	}
 
 	scalar scalar::operator-(const scalar &o) const{
@@ -20,38 +14,33 @@ namespace AtomizedCat {
 	}
 
 	scalar scalar::operator*(const scalar &o) const{
-		scalar n;
-		n.m = m * (o.m);
-		return n;
+		return scalar(m * o.m);
 	}
 
 	scalar scalar::operator/(const scalar &o) const{
-		scalar n;
-		n.m = m / (o.m);
-		return n;
+		return scalar(m / o.m);
 	}
 
-	Vector3 Vector3::operator+(const Vector3 &o) const{
-		Vector3 n;
-		n.x = x + o.x;
-		n.y = y + o.y;
-		n.z = z + o.z;
+	scalar::scalar(const double magnitude): m(magnitude){};
+	scalar::scalar(const scalar &rhs): scalar(rhs.m){};
 
-		return n;
+	Vector3 Vector3::operator+(const Vector3 &o) const{
+		return Vector3(x+o.x,y+o.y,z+o.z);
 	}
 
 	Vector3 Vector3::operator-() const{
-		Vector3 n;
-		n.x = -x;
-		n.y = -y;
-		n.z = -z;
-		
-		return n;
+		return Vector3(-x,-y,-z);
 	}
 
 	Vector3 Vector3::operator-(const Vector3 &o) const{
 		return *this + (-o);
 	}
+
+	Vector3::Vector3(const scalar argX, const scalar argY, const scalar argZ):
+		x(argX),y(argY),z(argZ){};
+
+	Vector3::Vector3(const Vector3 &rhs):
+		Vector3(rhs.x,rhs.y,rhs.z){};
 
 	scalar Vector3::squaredMagnitude() const{
 		return x*x+y*y+z*z;
@@ -62,13 +51,11 @@ namespace AtomizedCat {
 	}
 
 	Vector3 Vector3::cross(const Vector3 &o) const{
-		Vector3 n;
-
-		n.x = y*o.z-z*o.y;
-		n.y = z*o.x-x*o.z;
-		n.z = x*o.y-y*o.x;
-
-		return n;
+		return Vector3(
+			y*o.z-z*o.y,
+			z*o.x-x*o.z,
+			x*o.y-y*o.x
+			);
 	}
 
 	Vector3 Position::operator-(const Position &o) const{
@@ -81,4 +68,10 @@ namespace AtomizedCat {
 		
 		return n;
 	}
+
+	Position::Position(const Position &ref, const Vector3 &dif):
+		absolutepos(ref.absolutepos + dif){};
+
+	Position::Position(const Position &rhs):
+		absolutepos(rhs.absolutepos){};
 }

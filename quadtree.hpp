@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <array>
 #include <optional>
 
 #include "primitives.hpp"
@@ -10,15 +11,17 @@
 
 namespace AtomizedCat{
 	struct Quad{
-		// [ UL UR ]
-		// [ DL DR ]
-		std::optional<std::unique_ptr<Quad>> *UL;
-		std::optional<std::unique_ptr<Quad>> *UR;
-		std::optional<std::unique_ptr<Quad>> *DL;
-		std::optional<std::unique_ptr<Quad>> *DR;
+		// [ UL UR DL DR]
+		const std::optional<std::array<std::shared_ptr<Quad>, 4>> Branches;
 
-		std::optional<std::vector<Particle*>> Particles;
-		scalar mass; //Mass in grams
+		const std::vector<std::shared_ptr<Particle>> Particles;
+		const scalar mass; //Mass in grams
+
+		Quad(
+			const std::optional<std::array<std::shared_ptr<Quad>, 4>> &argBranches,
+			const std::vector<std::shared_ptr<Particle>> &argParticles,
+			const scalar &argMass
+		);
 	};
 
 	std::unique_ptr<Quad> CalculateQuadTree(const std::vector<Particle> &Particles, const unsigned int maxDepth); // Create quadtree (setting mass) with the given points
